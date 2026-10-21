@@ -7,7 +7,7 @@ build:
 services:
   - name: web
     type: web
-    run: sh -c 'exec uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}'
+    run: python main.py
     port: 8000
     cpuCores: 0.25
     ramMegabytes: 256
