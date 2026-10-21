@@ -1,12 +1,25 @@
+import os
+
+import uvicorn
 from fastapi import FastAPI
 
-app = FastAPI()
+app = FastAPI(title="FastAPI on Porter")
 
 
 @app.get("/")
 async def root():
-    return {"author": "rudimk", "message": "in remembrance of earth's past."}
+    return {"message": "FastAPI is running on Porter"}
 
-@app.get("/info")
-async def root():
-    return {"author": "rudimk", "message": "สวัสดี"}
+
+@app.get("/healthz")
+async def healthz():
+    return {"status": "ok"}
+
+
+@app.get("/hello/{name}")
+async def hello(name: str):
+    return {"message": f"Hello, {name}!"}
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", "8000")))
