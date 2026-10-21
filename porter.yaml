@@ -1,0 +1,16 @@
+version: v2
+name: fastapi-getting-started
+build:
+  method: docker
+  context: .
+  dockerfile: ./Dockerfile
+services:
+  - name: web
+    type: web
+    run: sh -c 'exec uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}'
+    port: 8000
+    cpuCores: 0.25
+    ramMegabytes: 256
+    healthCheck:
+      enabled: true
+      httpPath: /healthz
